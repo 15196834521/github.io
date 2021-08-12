@@ -1,16 +1,19 @@
-# This is a basic workflow to help you get started with Actions
-
-on: [push]
+on:
+  watch:
+    # Test on star, not push
+    types: [started]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Tencent Cloudbase Github Action Example
+    env:
+      accessToken: ${{ secrets.accessToken }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Deploy to Tencent CloudBase
-        uses: TencentCloudBase/cloudbase-action@v2
+        uses: ./
         with:
           secretId: ${{secrets.secretId}}
           secretKey: ${{secrets.secretKey}}
